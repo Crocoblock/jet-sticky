@@ -23,7 +23,7 @@
 				};
 
 			if ( ! editMode ) {
-				settings = $target.data( 'settings' );
+				settings = $target.data( 'jet-sticky-column-settings' );
 
 				if ( $target.hasClass( 'jet-sticky-column-sticky' ) ) {
 

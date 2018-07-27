@@ -162,7 +162,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 
 					$element->add_render_attribute( '_wrapper', array(
 						'class'         => 'jet-sticky-column-sticky',
-						'data-settings' => json_encode( $column_settings ),
+						'data-jet-sticky-column-settings' => json_encode( $column_settings ),
 					) );
 				}
 

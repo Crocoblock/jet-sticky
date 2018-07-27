@@ -1,4 +1,4 @@
-# JetSticky For Elementor
+# Jet Sticky For Elementor
 
 Enjoy adding animation on the fly without coding skills
 
