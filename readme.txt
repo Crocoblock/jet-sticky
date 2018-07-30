@@ -1,4 +1,4 @@
-=== Jet Sticky For Elementor ===
+=== JetSticky For Elementor ===
 
 Contributors: Crocoblock
 Tags: elementor, elementor builder, sticky, sticky column, sticky section
@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Jet Sticky is the plugin which allows to make the sections and columns built with Elementor sticky!
+JetSticky is the plugin which allows to make the sections and columns built with Elementor sticky!
 
 == Description ==
 

@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Jet Sticky For Elementor
- * Description: Jet Sticky is the plugin which allows to make the sections and columns built with Elementor sticky!
+ * Plugin Name: JetSticky For Elementor
+ * Description: JetSticky is the plugin which allows to make the sections and columns built with Elementor sticky!
  * Version:     1.0.0
  * Author:      Crocoblock
  * Author URI:  https://crocoblock.com/
@@ -144,13 +144,13 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 				'is_automatic' => false,
 				'strings'      => array(
 					'notice_can_install_required'     => _n_noop(
-						'Jet Blog for Elementor requires the following plugin: %1$s.',
-						'Jet Blog for Elementor requires the following plugins: %1$s.',
+						'JetSticky for Elementor requires the following plugin: %1$s.',
+						'JetSticky for Elementor requires the following plugins: %1$s.',
 						'jet-sticky'
 					),
 					'notice_can_install_recommended'  => _n_noop(
-						'Jet Blog for Elementor recommends the following plugin: %1$s.',
-						'Jet Blog for Elementor recommends the following plugins: %1$s.',
+						'JetSticky for Elementor recommends the following plugin: %1$s.',
+						'JetSticky for Elementor recommends the following plugins: %1$s.',
 						'jet-sticky'
 					),
 				),
