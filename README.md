@@ -1,6 +1,6 @@
 # Jet Sticky For Elementor
 
-Enjoy adding animation on the fly without coding skills
+Jet Sticky is the plugin which allows to make the sections and columns built with Elementor sticky!
 
 # ChangeLog
 
