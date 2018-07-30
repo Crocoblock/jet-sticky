@@ -4,6 +4,6 @@
  *
  * @package  jet-sticky
  * @category Core
- * @author   Crocoblock
+ * @author   CrocoBlock
  * @license  GPL-2.0+
  */

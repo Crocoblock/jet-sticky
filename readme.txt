@@ -1,6 +1,6 @@
 === JetSticky For Elementor ===
 
-Contributors: Crocoblock
+Contributors: CrocoBlock
 Tags: elementor, elementor builder, sticky, sticky column, sticky section
 Requires at least: 4.7
 Tested up to: 4.9.7
