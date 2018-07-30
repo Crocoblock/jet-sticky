@@ -103,6 +103,12 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 			jet_sticky_element_extension()->init();
 			jet_sticky_assets()->init();
 
+			if ( is_admin() ) {
+				if ( ! $this->has_elementor() ) {
+					$this->required_plugins_notice();
+				}
+			}
+
 			do_action( 'jet-sticky/init', $this );
 
 		}
