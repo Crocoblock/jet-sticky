@@ -45,6 +45,8 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			add_action( 'elementor/frontend/column/before_render',  array( $this, 'column_before_render' ) );
 			add_action( 'elementor/frontend/element/before_render', array( $this, 'column_before_render' ) );
 
+			add_action( 'elementor/element/section/section_advanced/after_section_end', array( $this, 'add_section_sticky_controls' ), 10, 2 );
+
 			add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_scripts' ), 9 );
 		}
 
@@ -138,7 +140,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 		 *
 		 * @param object $element
 		 *
-		 * @return bool|void
+		 * @return void
 		 */
 		public function column_before_render( $element ) {
 			$data     = $element->get_data();
@@ -146,7 +148,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$settings = $data['settings'];
 
 			if ( 'column' !== $type ) {
-				return false;
+				return;
 			}
 
 			if ( isset( $settings['jet_sticky_column_sticky_enable'] ) ) {
@@ -161,13 +163,193 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 				if ( filter_var( $settings['jet_sticky_column_sticky_enable'], FILTER_VALIDATE_BOOLEAN ) ) {
 
 					$element->add_render_attribute( '_wrapper', array(
-						'class'         => 'jet-sticky-column-sticky',
+						'class' => 'jet-sticky-column-sticky',
 						'data-jet-sticky-column-settings' => json_encode( $column_settings ),
 					) );
 				}
 
 				$this->columns_data[ $data['id'] ] = $column_settings;
 			}
+		}
+
+		/**
+		 * Add sticky controls to section settings.
+		 *
+		 * @param object $element Element instance.
+		 * @param array  $args    Element arguments.
+		 */
+		public function add_section_sticky_controls( $element, $args ) {
+			$element->start_controls_section(
+				'jet_sticky_section_sticky_settings',
+				array(
+					'label' => esc_html__( 'Jet Sticky', 'jet-sticky' ),
+					'tab'   => Elementor\Controls_Manager::TAB_ADVANCED,
+				)
+			);
+
+			$element->add_control(
+				'jet_sticky_section_sticky',
+				array(
+					'label'   => esc_html__( 'Sticky Section', 'jet-sticky' ),
+					'type'    => Elementor\Controls_Manager::SWITCHER,
+					'default' => '',
+					'frontend_available' => true,
+				)
+			);
+
+			$element->add_control(
+				'jet_sticky_section_sticky_visibility',
+				array(
+					'label'       => esc_html__( 'Sticky Section Visibility', 'jet-sticky' ),
+					'type'        => Elementor\Controls_Manager::SELECT2,
+					'multiple'    => true,
+					'label_block' => true,
+					'default' => array( 'desktop', 'tablet', 'mobile' ),
+					'options' => array(
+						'desktop' => esc_html__( 'Desktop', 'jet-sticky' ),
+						'tablet'  => esc_html__( 'Tablet', 'jet-sticky' ),
+						'mobile'  => esc_html__( 'Mobile', 'jet-sticky' ),
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+					'frontend_available' => true,
+				)
+			);
+
+			$element->add_control(
+				'jet_sticky_section_sticky_z_index',
+				array(
+					'label'       => esc_html__( 'Z-index', 'jet-sticky' ),
+					'type'        => Elementor\Controls_Manager::NUMBER,
+					'placeholder' => 1100,
+					'min'         => 1,
+					'max'         => 10000,
+					'step'        => 1,
+					'selectors'   => array(
+						'{{WRAPPER}}.jet-sticky-section-sticky--stuck' => 'z-index: {{VALUE}};',
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_control(
+				'jet_sticky_section_sticky_max_width',
+				array(
+					'label' => esc_html__( 'Max Width (px)', 'jet-sticky' ),
+					'type'  => Elementor\Controls_Manager::SLIDER,
+					'range' => array(
+						'px' => array(
+							'min' => 500,
+							'max' => 2000,
+						),
+					),
+					'selectors'   => array(
+						'{{WRAPPER}}.jet-sticky-section-sticky--stuck' => 'max-width: {{SIZE}}{{UNIT}};',
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_responsive_control(
+				'jet_sticky_section_sticky_style_heading',
+				array(
+					'label'     => esc_html__( 'Sticky Section Style', 'jet-sticky' ),
+					'type'      => Elementor\Controls_Manager::HEADING,
+					'separator' => 'before',
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_responsive_control(
+				'jet_sticky_section_sticky_margin',
+				array(
+					'label'      => esc_html__( 'Margin', 'jet-sticky' ),
+					'type'       => Elementor\Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', '%' ),
+					'allowed_dimensions' => 'vertical',
+					'placeholder' => array(
+						'top'    => '',
+						'right'  => 'auto',
+						'bottom' => '',
+						'left'   => 'auto',
+					),
+					'selectors' => array(
+						'{{WRAPPER}}.jet-sticky-section-sticky--stuck' => 'margin-top: {{TOP}}{{UNIT}}; margin-bottom: {{BOTTOM}}{{UNIT}};',
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_responsive_control(
+				'jet_sticky_section_sticky_padding',
+				array(
+					'label'      => esc_html__( 'Padding', 'jet-sticky' ),
+					'type'       => Elementor\Controls_Manager::DIMENSIONS,
+					'size_units' => array( 'px', 'em', '%' ),
+					'selectors'  => array(
+						'{{WRAPPER}}.jet-sticky-section-sticky--stuck' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_group_control(
+				Elementor\Group_Control_Background::get_type(),
+				array(
+					'name'      => 'jet_sticky_section_sticky_background',
+					'selector'  => '{{WRAPPER}}.jet-sticky-section-sticky--stuck',
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_group_control(
+				Elementor\Group_Control_Box_Shadow::get_type(),
+				array(
+					'name'      => 'jet_sticky_section_sticky_box_shadow',
+					'selector'  => '{{WRAPPER}}.jet-sticky-section-sticky--stuck',
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->add_control(
+				'jet_sticky_section_sticky_transition',
+				array(
+					'label'   => esc_html__( 'Transition Duration', 'jet-sticky' ),
+					'type'    => Elementor\Controls_Manager::SLIDER,
+					'default' => array(
+						'size' => 0.1,
+					),
+					'range' => array(
+						'px' => array(
+							'max'  => 3,
+							'step' => 0.1,
+						),
+					),
+					'selectors' => array(
+						'{{WRAPPER}}.jet-sticky-section-sticky--stuck.jet-sticky-transition-in, {{WRAPPER}}.jet-sticky-section-sticky--stuck.jet-sticky-transition-out' => 'transition: margin {{SIZE}}s, padding {{SIZE}}s, background {{SIZE}}s, box-shadow {{SIZE}}s',
+					),
+					'condition' => array(
+						'jet_sticky_section_sticky' => 'yes',
+					),
+				)
+			);
+
+			$element->end_controls_section();
 		}
 
 		/**
@@ -190,6 +372,14 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 				jet_sticky()->plugin_url( 'assets/js/lib/sticky-sidebar/sticky-sidebar.min.js' ),
 				array( 'jquery', 'jet-resize-sensor' ),
 				'3.3.1',
+				true
+			);
+
+			wp_enqueue_script(
+				'jsticky',
+				jet_sticky()->plugin_url( 'assets/js/lib/jsticky/jquery.jsticky.js' ),
+				array( 'jquery' ),
+				'1.1.0',
 				true
 			);
 
