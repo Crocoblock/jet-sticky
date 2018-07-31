@@ -1,9 +1,10 @@
 === JetSticky For Elementor ===
 
 Contributors: CrocoBlock
-Tags: elementor, elementor builder, sticky, sticky column, sticky section
+Tags: elementor, elementor builder, sticky, sticky column, sticky section, sticky header, addons, elementor addons
 Requires at least: 4.7
 Tested up to: 4.9.7
+Requires PHP: 5.4
 Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,15 +27,12 @@ To add a sticky section you’ll have to:
 
 After that you’ll have access to lots of style settings that provide opportunity to change the section’s appearance when one scrolls the page and the section moves as you scroll the content up or down.
 
-Key Features for Sticky Section Effect:
+**Key Features for Sticky Section Effect:**
 
-Sticky Section Visibility - allows to make the section sticky on desktop, tablet or mobile device, depending on your needs.
-
-Z-index - provides opportunity to add the depth to the content, making the section show always on top or behind some of the elements shown on the page.
-
-Sticky Section Style - includes multiple stylization settings for the sticky section, allowing to change the section’s padding values, background type, etc.
-
-Transition Duration - allows to change the time of the section’s transition.
+- **Sticky Section Visibility** - allows to make the section sticky on desktop, tablet or mobile device, depending on your needs.
+- **Z-index** - provides opportunity to add the depth to the content, making the section show always on top or behind some of the elements shown on the page.
+- **Sticky Section Style** - includes multiple stylization settings for the sticky section, allowing to change the section’s padding values, background type, etc.
+- **Transition Duration** - allows to change the time of the section’s transition.
 
 = Sticky Column Effect =
 
