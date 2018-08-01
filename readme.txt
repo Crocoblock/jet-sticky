@@ -1,7 +1,7 @@
 === JetSticky For Elementor ===
 
 Contributors: CrocoBlock
-Tags: elementor, elementor builder, sticky, sticky column, sticky section, sticky header, addons, elementor addons
+Tags: elementor, sticky, sticky column, sticky section, sticky header, addons, elementor addons
 Requires at least: 4.7
 Tested up to: 4.9.7
 Requires PHP: 5.4
