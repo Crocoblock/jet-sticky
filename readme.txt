@@ -1,4 +1,4 @@
-=== JetSticky For Elementor ===
+=== Jet Sticky ===
 
 Contributors: CrocoBlock
 Tags: elementor, elementor builder, sticky, sticky column, sticky section, sticky header, addons, elementor addons
