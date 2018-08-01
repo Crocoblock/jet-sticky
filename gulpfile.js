@@ -39,7 +39,7 @@ gulp.task('watch', function() {
 gulp.task( 'checktextdomain', function() {
 	return gulp.src( ['**/*.php', '!cherry-framework/**/*.php'] )
 		.pipe( checktextdomain( {
-			text_domain: 'jet-sticky',
+			text_domain: 'jetsticky-for-elementor',
 			keywords:    [
 				'__:1,2d',
 				'_e:1,2d',

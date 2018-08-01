@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Jet Sticky
- * Description: Jet Sticky is the plugin which allows to make the sections and columns built with Elementor sticky!
+ * Plugin Name: JetSticky For Elementor
+ * Description: JetSticky is the plugin which allows to make the sections and columns built with Elementor sticky!
  * Version:     1.0.0
  * Author:      CrocoBlock
  * Author URI:  https://crocoblock.com/
- * Text Domain: jet-sticky
+ * Text Domain: jetsticky-for-elementor
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: /languages
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 			);
 
 			$config = array(
-				'id'           => 'jet-sticky',
+				'id'           => 'jetsticky-for-elementor',
 				'default_path' => '',
 				'menu'         => 'jet-sticky-install-plugins',
 				'parent_slug'  => 'plugins.php',
@@ -152,12 +152,12 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 					'notice_can_install_required'     => _n_noop(
 						'JetSticky for Elementor requires the following plugin: %1$s.',
 						'JetSticky for Elementor requires the following plugins: %1$s.',
-						'jet-sticky'
+						'jetsticky-for-elementor'
 					),
 					'notice_can_install_recommended'  => _n_noop(
 						'JetSticky for Elementor recommends the following plugin: %1$s.',
 						'JetSticky for Elementor recommends the following plugins: %1$s.',
-						'jet-sticky'
+						'jetsticky-for-elementor'
 					),
 				),
 			);
@@ -231,7 +231,7 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 		 * @return void
 		 */
 		public function lang() {
-			load_plugin_textdomain( 'jet-sticky', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'jetsticky-for-elementor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/**

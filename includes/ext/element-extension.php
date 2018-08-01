@@ -62,7 +62,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$obj->start_controls_section(
 				'jet_sticky_column_sticky_section',
 				array(
-					'label' => esc_html__( 'Jet Sticky', 'jet-sticky' ),
+					'label' => esc_html__( 'Jet Sticky', 'jetsticky-for-elementor' ),
 					'tab'   => Elementor\Controls_Manager::TAB_ADVANCED,
 				)
 			);
@@ -70,10 +70,10 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$obj->add_control(
 				'jet_sticky_column_sticky_enable',
 				array(
-					'label'        => esc_html__( 'Sticky Column', 'jet-sticky' ),
+					'label'        => esc_html__( 'Sticky Column', 'jetsticky-for-elementor' ),
 					'type'         => Elementor\Controls_Manager::SWITCHER,
-					'label_on'     => esc_html__( 'Yes', 'jet-sticky' ),
-					'label_off'    => esc_html__( 'No', 'jet-sticky' ),
+					'label_on'     => esc_html__( 'Yes', 'jetsticky-for-elementor' ),
+					'label_off'    => esc_html__( 'No', 'jetsticky-for-elementor' ),
 					'return_value' => 'true',
 					'default'      => 'false',
 				)
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$obj->add_control(
 				'jet_sticky_column_sticky_top_spacing',
 				array(
-					'label'   => esc_html__( 'Top Spacing', 'jet-sticky' ),
+					'label'   => esc_html__( 'Top Spacing', 'jetsticky-for-elementor' ),
 					'type'    => Elementor\Controls_Manager::NUMBER,
 					'default' => 50,
 					'min'     => 0,
@@ -97,7 +97,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$obj->add_control(
 				'jet_sticky_column_sticky_bottom_spacing',
 				array(
-					'label'   => esc_html__( 'Bottom Spacing', 'jet-sticky' ),
+					'label'   => esc_html__( 'Bottom Spacing', 'jetsticky-for-elementor' ),
 					'type'    => Elementor\Controls_Manager::NUMBER,
 					'default' => 50,
 					'min'     => 0,
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$obj->add_control(
 				'jet_sticky_column_sticky_enable_on',
 				array(
-					'label'    => __( 'Sticky On', 'jet-sticky' ),
+					'label'    => __( 'Sticky On', 'jetsticky-for-elementor' ),
 					'type'     => Elementor\Controls_Manager::SELECT2,
 					'multiple' => true,
 					'label_block' => 'true',
@@ -121,9 +121,9 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 						'tablet',
 					),
 					'options' => array(
-						'desktop' => __( 'Desktop', 'jet-sticky' ),
-						'tablet'  => __( 'Tablet', 'jet-sticky' ),
-						'mobile'  => __( 'Mobile', 'jet-sticky' ),
+						'desktop' => __( 'Desktop', 'jetsticky-for-elementor' ),
+						'tablet'  => __( 'Tablet', 'jetsticky-for-elementor' ),
+						'mobile'  => __( 'Mobile', 'jetsticky-for-elementor' ),
 					),
 					'condition' => array(
 						'jet_sticky_column_sticky_enable' => 'true',
@@ -182,7 +182,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->start_controls_section(
 				'jet_sticky_section_sticky_settings',
 				array(
-					'label' => esc_html__( 'Jet Sticky', 'jet-sticky' ),
+					'label' => esc_html__( 'Jet Sticky', 'jetsticky-for-elementor' ),
 					'tab'   => Elementor\Controls_Manager::TAB_ADVANCED,
 				)
 			);
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_control(
 				'jet_sticky_section_sticky',
 				array(
-					'label'   => esc_html__( 'Sticky Section', 'jet-sticky' ),
+					'label'   => esc_html__( 'Sticky Section', 'jetsticky-for-elementor' ),
 					'type'    => Elementor\Controls_Manager::SWITCHER,
 					'default' => '',
 					'frontend_available' => true,
@@ -200,15 +200,15 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_control(
 				'jet_sticky_section_sticky_visibility',
 				array(
-					'label'       => esc_html__( 'Sticky Section Visibility', 'jet-sticky' ),
+					'label'       => esc_html__( 'Sticky Section Visibility', 'jetsticky-for-elementor' ),
 					'type'        => Elementor\Controls_Manager::SELECT2,
 					'multiple'    => true,
 					'label_block' => true,
 					'default' => array( 'desktop', 'tablet', 'mobile' ),
 					'options' => array(
-						'desktop' => esc_html__( 'Desktop', 'jet-sticky' ),
-						'tablet'  => esc_html__( 'Tablet', 'jet-sticky' ),
-						'mobile'  => esc_html__( 'Mobile', 'jet-sticky' ),
+						'desktop' => esc_html__( 'Desktop', 'jetsticky-for-elementor' ),
+						'tablet'  => esc_html__( 'Tablet', 'jetsticky-for-elementor' ),
+						'mobile'  => esc_html__( 'Mobile', 'jetsticky-for-elementor' ),
 					),
 					'condition' => array(
 						'jet_sticky_section_sticky' => 'yes',
@@ -220,7 +220,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_control(
 				'jet_sticky_section_sticky_z_index',
 				array(
-					'label'       => esc_html__( 'Z-index', 'jet-sticky' ),
+					'label'       => esc_html__( 'Z-index', 'jetsticky-for-elementor' ),
 					'type'        => Elementor\Controls_Manager::NUMBER,
 					'placeholder' => 1100,
 					'min'         => 1,
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_control(
 				'jet_sticky_section_sticky_max_width',
 				array(
-					'label' => esc_html__( 'Max Width (px)', 'jet-sticky' ),
+					'label' => esc_html__( 'Max Width (px)', 'jetsticky-for-elementor' ),
 					'type'  => Elementor\Controls_Manager::SLIDER,
 					'range' => array(
 						'px' => array(
@@ -258,7 +258,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_responsive_control(
 				'jet_sticky_section_sticky_style_heading',
 				array(
-					'label'     => esc_html__( 'Sticky Section Style', 'jet-sticky' ),
+					'label'     => esc_html__( 'Sticky Section Style', 'jetsticky-for-elementor' ),
 					'type'      => Elementor\Controls_Manager::HEADING,
 					'separator' => 'before',
 					'condition' => array(
@@ -270,7 +270,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_responsive_control(
 				'jet_sticky_section_sticky_margin',
 				array(
-					'label'      => esc_html__( 'Margin', 'jet-sticky' ),
+					'label'      => esc_html__( 'Margin', 'jetsticky-for-elementor' ),
 					'type'       => Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', '%' ),
 					'allowed_dimensions' => 'vertical',
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_responsive_control(
 				'jet_sticky_section_sticky_padding',
 				array(
-					'label'      => esc_html__( 'Padding', 'jet-sticky' ),
+					'label'      => esc_html__( 'Padding', 'jetsticky-for-elementor' ),
 					'type'       => Elementor\Controls_Manager::DIMENSIONS,
 					'size_units' => array( 'px', 'em', '%' ),
 					'selectors'  => array(
@@ -329,7 +329,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$element->add_control(
 				'jet_sticky_section_sticky_transition',
 				array(
-					'label'   => esc_html__( 'Transition Duration', 'jet-sticky' ),
+					'label'   => esc_html__( 'Transition Duration', 'jetsticky-for-elementor' ),
 					'type'    => Elementor\Controls_Manager::SLIDER,
 					'default' => array(
 						'size' => 0.1,
