@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jet Elements for Elementor\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-01 15:06+0300\n"
+"POT-Creation-Date: 2018-08-02 16:35+0300\n"
 "PO-Revision-Date: 2018-01-03 12:10+0200\n"
 "Last-Translator: Vladimir Anokhin <ano.vladimir@gmail.com>\n"
 "Language-Team: JetImpex\n"
@@ -445,4 +445,8 @@ msgstr ""
 #: includes/lib/class-tgm-plugin-activation.php:3613
 #, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: jetsticky-for-elementor.php:260
+msgid "Get more features"
 msgstr ""

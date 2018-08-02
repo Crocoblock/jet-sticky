@@ -59,6 +59,15 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 		private $plugin_path = null;
 
 		/**
+		 * Holder for base plugin name
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 * @var    string
+		 */
+		private $plugin_basename = null;
+
+		/**
 		 * Components
 		 */
 		public $assets;
@@ -76,6 +85,9 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 			add_action( 'init', array( $this, 'lang' ), -999 );
 			// Load files.
 			add_action( 'init', array( $this, 'init' ), -999 );
+
+			// ADD plugin action link.
+			add_filter( 'plugin_action_links_' . $this->plugin_basename(),  array( $this, 'plugin_action_links' ) );
 
 			// Register activation and deactivation hook.
 			register_activation_hook( __FILE__, array( $this, 'activation' ) );
@@ -221,6 +233,34 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 			}
 
 			return $this->plugin_url . $path;
+		}
+
+		/**
+		 * Get plugin base name.
+		 */
+		public function plugin_basename() {
+			if ( ! $this->plugin_basename ) {
+				$this->plugin_basename = plugin_basename( __FILE__ );
+			}
+
+			return $this->plugin_basename;
+		}
+
+		/**
+		 * Plugin action links.
+		 *
+		 * @param array $links An array of plugin action links.
+		 *
+		 * @return array An array of plugin action links.
+		 */
+		public function plugin_action_links( $links = array() ) {
+
+			$links['jetsticky_get_more'] = sprintf('<a href="%1$s" target="_blank" class="jetsticky-get-more-action-link">%2$s</a>',
+				'https://crocoblock.com/',
+				esc_html__( 'Get more features', 'jetsticky-for-elementor' )
+			);
+
+			return $links;
 		}
 
 		/**

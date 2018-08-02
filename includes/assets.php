@@ -36,6 +36,7 @@ if ( ! class_exists( 'Jet_Sticky_Assets' ) ) {
 		public function init() {
 			add_action( 'elementor/frontend/after_enqueue_styles',   array( $this, 'enqueue_styles' ) );
 			add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
+			add_action( 'admin_enqueue_scripts',  array( $this, 'admin_enqueue_styles' ) );
 		}
 
 		/**
@@ -73,6 +74,24 @@ if ( ! class_exists( 'Jet_Sticky_Assets' ) ) {
 			wp_localize_script( 'jet-sticky-frontend', 'JetStickySettings', array(
 				'elements_data' => $this->elements_data,
 			) );
+		}
+
+		/**
+		 * Enqueue admin styles
+		 *
+		 * @return void
+		 */
+		public function admin_enqueue_styles() {
+			$screen = get_current_screen();
+
+			if ( 'plugins' === $screen->base ) {
+				wp_enqueue_style(
+					'jet-sticky-admin',
+					jet_sticky()->plugin_url( 'assets/css/jet-sticky-admin.css' ),
+					false,
+					jet_sticky()->get_version()
+				);
+			}
 		}
 
 		/**

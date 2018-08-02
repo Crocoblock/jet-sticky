@@ -31,9 +31,33 @@ gulp.task('jet-sticky-frontend', function() {
 		.pipe(notify('Compile Sass Done!'));
 });
 
+//admin
+gulp.task('jet-sticky-admin', function() {
+	return gulp.src('./assets/scss/jet-sticky-admin.scss')
+		.pipe(
+			plumber( {
+				errorHandler: function ( error ) {
+					console.log('=================ERROR=================');
+					console.log(error.message);
+					this.emit( 'end' );
+				}
+			})
+		)
+		.pipe(sass( { outputStyle: 'compressed' } ))
+		.pipe(autoprefixer({
+			browsers: ['last 10 versions'],
+			cascade: false
+		}))
+
+		.pipe(rename('jet-sticky-admin.css'))
+		.pipe(gulp.dest('./assets/css/'))
+		.pipe(notify('Compile Sass Done!'));
+});
+
 //watch
 gulp.task('watch', function() {
 	gulp.watch('./assets/scss/**', ['jet-sticky-frontend']);
+	gulp.watch('./assets/scss/**', ['jet-sticky-admin']);
 });
 
 gulp.task( 'checktextdomain', function() {
