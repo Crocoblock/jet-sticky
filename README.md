@@ -5,5 +5,4 @@ Jet Sticky is the plugin which allows to make the sections and columns built wit
 # ChangeLog
 
 ## [1.0.0]
-
 * Init
