@@ -249,8 +249,6 @@
 						section.trigger( 'jetStickySection:activated' );
 					}
 
-					console.log(currentDeviceMode);
-					console.log(JetSticky.getStickySectionsDesktop);
 					if ( 'desktop' === currentDeviceMode && ! this.initDesktop ) {
 						if ( this.initTablet ) {
 							JetSticky.getStickySectionsTablet.forEach( function( section, i ) {
