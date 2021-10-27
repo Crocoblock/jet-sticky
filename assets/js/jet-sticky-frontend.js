@@ -22,8 +22,8 @@
 				stickyInstanceOptions = {
 					topSpacing: 50,
 					bottomSpacing: 50,
-					containerSelector: '.elementor-row',
-					innerWrapperSelector: '.elementor-column-wrap'
+					containerSelector: '.elementor-section',
+					innerWrapperSelector: '.elementor-widget-wrap'
 				};
 
 			if ( ! editMode ) {
@@ -249,6 +249,8 @@
 						section.trigger( 'jetStickySection:activated' );
 					}
 
+					console.log(currentDeviceMode);
+					console.log(JetSticky.getStickySectionsDesktop);
 					if ( 'desktop' === currentDeviceMode && ! this.initDesktop ) {
 						if ( this.initTablet ) {
 							JetSticky.getStickySectionsTablet.forEach( function( section, i ) {
