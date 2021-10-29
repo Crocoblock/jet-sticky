@@ -2,7 +2,7 @@
 /**
  * Plugin Name: JetSticky For Elementor
  * Description: JetSticky is the plugin which allows to make the sections and columns built with Elementor sticky!
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Crocoblock
  * Author URI:  https://crocoblock.com/
  * Text Domain: jetsticky-for-elementor
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Jet_Sticky' ) ) {
 		 *
 		 * @var string
 		 */
-		private $version = '1.0.2';
+		private $version = '1.0.3';
 
 		/**
 		 * Holder for base plugin path
