@@ -59,15 +59,23 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 		 */
 		public function after_column_section_layout( $obj, $args ) {
 
-			$active_breakpoints = \Elementor\Plugin::$instance->breakpoints->get_active_breakpoints();
-			$breakpoints_list   = array();
+			if ( \Elementor\Plugin::$instance->breakpoints && method_exists( \Elementor\Plugin::$instance->breakpoints, 'get_active_breakpoints')) {
+				$active_breakpoints = \Elementor\Plugin::$instance->breakpoints->get_active_breakpoints();
+				$breakpoints_list   = array();
 
-			foreach ( $active_breakpoints as $key => $value ) {
-				$breakpoints_list[$key] = $value->get_label();
+				foreach ($active_breakpoints as $key => $value) {
+					$breakpoints_list[$key] = $value->get_label();
+				}
+
+				$breakpoints_list['desktop'] = 'Desktop';
+				$breakpoints_list            = array_reverse($breakpoints_list);
+			} else {
+				$breakpoints_list = array(
+					'desktop' => 'Desktop',
+					'tablet'  => 'Tablet',
+					'mobile'  => 'Mobile'
+				);
 			}
-
-			$breakpoints_list['desktop'] = 'Desktop';
-			$breakpoints_list            = array_reverse( $breakpoints_list );
 
 			$obj->start_controls_section(
 				'jet_sticky_column_sticky_section',
