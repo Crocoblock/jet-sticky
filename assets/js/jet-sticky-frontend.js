@@ -112,9 +112,36 @@
 			}
 		},
 
-		getStickySectionsDesktop: [],
-		getStickySectionsTablet:  [],
-		getStickySectionsMobile:  [],
+		getStickySections: {
+			'widescreen': {
+				targets: [],
+				inited: false
+			},
+			'desktop': {
+				targets: [],
+				inited: false
+			},
+			'laptop': {
+				targets: [],
+				inited: false
+			},
+			'tablet_extra': {
+				targets: [],
+				inited: false
+			},
+			'tablet': {
+				targets: [],
+				inited: false
+			},
+			'mobile_extra': {
+				targets: [],
+				inited: false
+			},
+			'mobile': {
+				targets: [],
+				inited: false
+			}
+		},
 
 		setStickySection: function( $scope ) {
 			var setStickySection = {
@@ -135,17 +162,17 @@
 							return;
 						}
 
+						var activeBreakpoints = elementor.config.responsive.activeBreakpoints;
+
 						if ( -1 !== availableDevices.indexOf( 'desktop' ) ) {
-							JetSticky.getStickySectionsDesktop.push( $scope );
+							JetSticky.getStickySections['desktop']['targets'].push( $scope );
 						}
 
-						if ( -1 !== availableDevices.indexOf( 'tablet' ) ) {
-							JetSticky.getStickySectionsTablet.push( $scope );
-						}
-
-						if ( -1 !== availableDevices.indexOf( 'mobile' ) ) {
-							JetSticky.getStickySectionsMobile.push( $scope );
-						}
+						Object.keys( activeBreakpoints ).forEach( function( breakpointName ) {
+							if ( -1 !== availableDevices.indexOf( breakpointName ) ) {
+								JetSticky.getStickySections[breakpointName]['targets'].push( $scope );
+							}
+						} );
 					}
 				},
 
@@ -200,10 +227,6 @@
 
 				correctionSelector: $( '#wpadminbar' ),
 
-				initDesktop: false,
-				initTablet:  false,
-				initMobile:  false,
-
 				init: function() {
 					if ( this.isEditMode ) {
 						return;
@@ -225,9 +248,10 @@
 
 				run: function() {
 					var currentDeviceMode = elementorFrontend.getCurrentDeviceMode(),
-						transitionIn  = 'jet-sticky-transition-in',
-						transitionOut = 'jet-sticky-transition-out',
-						options = {
+						activeBreakpoints = elementor.config.responsive.activeBreakpoints,
+						transitionIn      = 'jet-sticky-transition-in',
+						transitionOut     = 'jet-sticky-transition-out',
+						options           = {
 							stickyClass: 'jet-sticky-section-sticky--stuck',
 							topSpacing: this.getOffset()
 						};
@@ -249,103 +273,51 @@
 						section.trigger( 'jetStickySection:activated' );
 					}
 
-					if ( 'desktop' === currentDeviceMode && ! this.initDesktop ) {
-						if ( this.initTablet ) {
-							JetSticky.getStickySectionsTablet.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
+					if ( 'desktop' != currentDeviceMode ) {
+						JetSticky.getStickySections['desktop']['targets'].forEach( function( item ) {
+							if ( true === JetSticky.getStickySections['desktop']['inited'] ) {
+								item.trigger( 'jetStickySection:detach' );
+							}
+						} )
 
-							this.initTablet = false;
-						}
+						JetSticky.getStickySections['desktop']['inited'] = false;
+					} else {
+						JetSticky.getStickySections['desktop']['targets'].forEach( function( section, i ) {
+							if ( JetSticky.getStickySections['desktop']['targets'][i+1] ) {
+								options.stopper = JetSticky.getStickySections['desktop']['targets'][i+1];
+							} else {
+								options.stopper = '';
+							}
 
-						if ( this.initMobile ) {
-							JetSticky.getStickySectionsMobile.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
+							initSticky( section, options );
+						} );
 
-							this.initMobile = false;
-						}
+						JetSticky.getStickySections['desktop']['inited'] = true;
+					}
 
-						if ( JetSticky.getStickySectionsDesktop[0] ) {
-							JetSticky.getStickySectionsDesktop.forEach( function( section, i ) {
+					Object.keys( activeBreakpoints ).forEach( function( breakpointName ) {
+						if ( breakpointName != currentDeviceMode ) {
+							JetSticky.getStickySections[breakpointName]['targets'].forEach( function( item ) {
+								if ( true === JetSticky.getStickySections[breakpointName]['inited'] ) {
+									item.trigger( 'jetStickySection:detach' );
+								}
+							} )
 
-								if ( JetSticky.getStickySectionsDesktop[i+1] ) {
-									options.stopper = JetSticky.getStickySectionsDesktop[i+1];
+							JetSticky.getStickySections[breakpointName]['inited'] = false;
+						} else {
+							JetSticky.getStickySections[breakpointName]['targets'].forEach( function( section, i ) {
+								if ( JetSticky.getStickySections[breakpointName]['targets'][i+1] ) {
+									options.stopper = JetSticky.getStickySections[breakpointName]['targets'][i+1];
 								} else {
 									options.stopper = '';
 								}
 
 								initSticky( section, options );
-							});
+							} );
 
-							this.initDesktop = true;
+							JetSticky.getStickySections[breakpointName]['inited'] = true;
 						}
-					}
-
-					if ( 'tablet' === currentDeviceMode && ! this.initTablet ) {
-						if ( this.initDesktop ) {
-							JetSticky.getStickySectionsDesktop.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
-
-							this.initDesktop = false;
-						}
-
-						if ( this.initMobile ) {
-							JetSticky.getStickySectionsMobile.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
-
-							this.initMobile = false;
-						}
-
-						if ( JetSticky.getStickySectionsTablet[0] ) {
-							JetSticky.getStickySectionsTablet.forEach( function( section, i ) {
-								if ( JetSticky.getStickySectionsTablet[i+1] ) {
-									options.stopper = JetSticky.getStickySectionsTablet[i+1];
-								} else {
-									options.stopper = '';
-								}
-
-								initSticky( section, options );
-							});
-
-							this.initTablet = true;
-						}
-					}
-
-					if ( 'mobile' === currentDeviceMode && ! this.initMobile ) {
-						if ( this.initDesktop ) {
-							JetSticky.getStickySectionsDesktop.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
-
-							this.initDesktop = false;
-						}
-
-						if ( this.initTablet ) {
-							JetSticky.getStickySectionsTablet.forEach( function( section, i ) {
-								section.trigger( 'jetStickySection:detach' );
-							});
-
-							this.initTablet = false;
-						}
-
-						if ( JetSticky.getStickySectionsMobile[0] ) {
-							JetSticky.getStickySectionsMobile.forEach( function( section, i ) {
-
-								if ( JetSticky.getStickySectionsMobile[i+1] ) {
-									options.stopper = JetSticky.getStickySectionsMobile[i+1];
-								} else {
-									options.stopper = '';
-								}
-
-								initSticky( section, options );
-							});
-
-							this.initMobile = true;
-						}
-					}
+					} )
 				}
 			};
 

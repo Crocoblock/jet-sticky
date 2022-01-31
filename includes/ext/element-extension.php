@@ -59,24 +59,6 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 		 */
 		public function after_column_section_layout( $obj, $args ) {
 
-			if ( \Elementor\Plugin::$instance->breakpoints && method_exists( \Elementor\Plugin::$instance->breakpoints, 'get_active_breakpoints')) {
-				$active_breakpoints = \Elementor\Plugin::$instance->breakpoints->get_active_breakpoints();
-				$breakpoints_list   = array();
-
-				foreach ($active_breakpoints as $key => $value) {
-					$breakpoints_list[$key] = $value->get_label();
-				}
-
-				$breakpoints_list['desktop'] = 'Desktop';
-				$breakpoints_list            = array_reverse($breakpoints_list);
-			} else {
-				$breakpoints_list = array(
-					'desktop' => 'Desktop',
-					'tablet'  => 'Tablet',
-					'mobile'  => 'Mobile'
-				);
-			}
-
 			$obj->start_controls_section(
 				'jet_sticky_column_sticky_section',
 				array(
@@ -138,7 +120,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 						'desktop',
 						'tablet',
 					),
-					'options' => $breakpoints_list,
+					'options' => $this->get_breakpoints_list(),
 					'condition' => array(
 						'jet_sticky_column_sticky_enable' => 'true',
 					),
@@ -218,13 +200,9 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 					'type'        => Elementor\Controls_Manager::SELECT2,
 					'multiple'    => true,
 					'label_block' => true,
-					'default' => array( 'desktop', 'tablet', 'mobile' ),
-					'options' => array(
-						'desktop' => esc_html__( 'Desktop', 'jetsticky-for-elementor' ),
-						'tablet'  => esc_html__( 'Tablet', 'jetsticky-for-elementor' ),
-						'mobile'  => esc_html__( 'Mobile', 'jetsticky-for-elementor' ),
-					),
-					'condition' => array(
+					'default'     => array( 'desktop', 'tablet', 'mobile' ),
+					'options'     => $this->get_breakpoints_list(),
+					'condition'   => array(
 						'jet_sticky_section_sticky' => 'yes',
 					),
 					'frontend_available' => true,
@@ -398,6 +376,28 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			);
 
 			jet_sticky_assets()->elements_data['columns'] = $this->columns_data;
+		}
+
+		public function get_breakpoints_list() {
+			if ( \Elementor\Plugin::$instance->breakpoints && method_exists( \Elementor\Plugin::$instance->breakpoints, 'get_active_breakpoints')) {
+				$active_breakpoints = \Elementor\Plugin::$instance->breakpoints->get_active_breakpoints();
+				$breakpoints_list   = array();
+
+				foreach ($active_breakpoints as $key => $value) {
+					$breakpoints_list[$key] = $value->get_label();
+				}
+
+				$breakpoints_list['desktop'] = 'Desktop';
+				$breakpoints_list            = array_reverse($breakpoints_list);
+			} else {
+				$breakpoints_list = array(
+					'desktop' => 'Desktop',
+					'tablet'  => 'Tablet',
+					'mobile'  => 'Mobile'
+				);
+			}
+
+			return $breakpoints_list;
 		}
 
 		/**
