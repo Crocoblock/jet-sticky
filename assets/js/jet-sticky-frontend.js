@@ -6,8 +6,10 @@
 
 		init: function() {
 			elementor.hooks.addAction( 'frontend/element_ready/column', JetSticky.elementorColumn );
+			elementor.hooks.addAction( 'frontend/element_ready/container', JetSticky.elementorColumn );
 
 			elementorFrontend.hooks.addAction( 'frontend/element_ready/section', JetSticky.setStickySection );
+			elementorFrontend.hooks.addAction( 'frontend/element_ready/container', JetSticky.setStickySection );
 
 			$( JetSticky.stickySection );
 		},
@@ -23,7 +25,7 @@
 					topSpacing: 50,
 					bottomSpacing: 50,
 					containerSelector: '.elementor-section',
-					innerWrapperSelector: '.elementor-widget-wrap'
+					innerWrapperSelector: '.elementor-widget-wrap',
 				};
 
 			if ( ! editMode ) {
@@ -33,31 +35,35 @@
 
 					if ( -1 !== settings['stickyOn'].indexOf( elementorFrontend.getCurrentDeviceMode() ) ) {
 
-						stickyInstanceOptions.topSpacing = settings['topSpacing'];
-						stickyInstanceOptions.bottomSpacing = settings['bottomSpacing'];
+						$target.each( function() {
 
-						$target.data( 'stickyColumnInit', true );
-						stickyInstance = new StickySidebar( $target[0], stickyInstanceOptions );
+							var $this  = $( this ),
 
-						$window.on( 'resize.JetStickyColumnSticky orientationchange.JetStickyColumnSticky', JetStickyTools.debounce( 50, resizeDebounce ) );
+							elementType = $this.data( 'element_type' );
+
+							if ( elementType !== 'container' ){
+			
+									stickyInstanceOptions.topSpacing = settings['topSpacing'];
+									stickyInstanceOptions.bottomSpacing = settings['bottomSpacing'];
+
+									$target.data( 'stickyColumnInit', true );
+									stickyInstance = new StickySidebar( $target[0], stickyInstanceOptions );
+
+									$window.on( 'resize.JetStickyColumnSticky orientationchange.JetStickyColumnSticky', JetStickyTools.debounce( 50, resizeDebounce ) );
+							
+							} else {
+								$this.addClass( 'jet-sticky-container-sticky' );
+								$this.css({ 
+									'top': settings['topSpacing'], 
+									'bottom': settings['bottomSpacing']
+								});
+							}
+						});
 					}
 				}
+
 			} else {
-				settings = JetSticky.columnEditorSettings( columnId );
-
-				if ( 'true' === settings['sticky'] ) {
-					$target.addClass( 'jet-sticky-column-sticky' );
-
-					if ( -1 !== settings['stickyOn'].indexOf( elementorFrontend.getCurrentDeviceMode() ) ) {
-						stickyInstanceOptions.topSpacing = settings['topSpacing'];
-						stickyInstanceOptions.bottomSpacing = settings['bottomSpacing'];
-
-						$target.data( 'stickyColumnInit', true );
-						stickyInstance = new StickySidebar( $target[0], stickyInstanceOptions );
-
-						$window.on( 'resize.JetStickyColumnSticky orientationchange.JetStickyColumnSticky', JetStickyTools.debounce( 50, resizeDebounce ) );
-					}
-				}
+				return false;
 			}
 
 			function resizeDebounce() {
@@ -205,12 +211,18 @@
 				initMobile:  false,
 
 				init: function() {
+
+					var _this = this;
+
 					if ( this.isEditMode ) {
 						return;
 					}
 
-					this.run();
-					$( window ).on( 'resize.JetStickySectionSticky orientationchange.JetStickySectionSticky', this.run.bind( this ) );
+					$( document ).ready( function(){
+						_this.run();
+					} );
+
+					$( window ).on( 'resize.JetStickySection orientationchange.JetStickySection', this.run.bind( this ) );
 				},
 
 				getOffset: function(){

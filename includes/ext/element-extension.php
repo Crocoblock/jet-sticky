@@ -41,13 +41,39 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 		public function init() {
 
 			add_action( 'elementor/element/column/section_advanced/after_section_end', array( $this, 'after_column_section_layout' ), 10, 2 );
-
 			add_action( 'elementor/frontend/column/before_render',  array( $this, 'column_before_render' ) );
 			add_action( 'elementor/frontend/element/before_render', array( $this, 'column_before_render' ) );
-
 			add_action( 'elementor/element/section/section_advanced/after_section_end', array( $this, 'add_section_sticky_controls' ), 10, 2 );
-
 			add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'enqueue_scripts' ), 9 );
+
+			//compability elementor flex container
+			add_action( 'elementor/frontend/container/before_render', array( $this, 'column_before_render' ) );
+			add_action( 'elementor/element/container/section_layout/after_section_end', array( $this, 'add_section_sticky_controls' ), 10, 2 );
+			add_action( 'elementor/element/container/jet_sticky_section_sticky_settings/before_section_end', array( $this, 'after_column_section_setting' ), 10, 2 );
+
+		}
+
+
+		/**
+		 * After column_layout callback
+		 *
+		 * @param  object $obj
+		 * @param  array $args
+		 * @return void
+		 */
+		public function after_column_section_layout($obj, $args) {
+
+			$obj->start_controls_section(
+				'jet_sticky_column_sticky_section',
+				array(
+					'label' => esc_html__( 'Jet Sticky', 'jetsticky-for-elementor' ),
+					'tab'   => Elementor\Controls_Manager::TAB_ADVANCED,
+				)
+			);
+
+			$this->after_column_section_setting($obj, $args);
+
+			$obj->end_controls_section();
 		}
 
 		/**
@@ -57,7 +83,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 		 * @param  array $args
 		 * @return void
 		 */
-		public function after_column_section_layout( $obj, $args ) {
+		public function after_column_section_setting( $obj, $args ) {
 
 			if ( \Elementor\Plugin::$instance->breakpoints && method_exists( \Elementor\Plugin::$instance->breakpoints, 'get_active_breakpoints')) {
 				$active_breakpoints = \Elementor\Plugin::$instance->breakpoints->get_active_breakpoints();
@@ -76,14 +102,6 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 					'mobile'  => 'Mobile'
 				);
 			}
-
-			$obj->start_controls_section(
-				'jet_sticky_column_sticky_section',
-				array(
-					'label' => esc_html__( 'Jet Sticky', 'jetsticky-for-elementor' ),
-					'tab'   => Elementor\Controls_Manager::TAB_ADVANCED,
-				)
-			);
 
 			$obj->add_control(
 				'jet_sticky_column_sticky_enable',
@@ -145,8 +163,6 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 					'render_type' => 'none',
 				)
 			);
-
-			$obj->end_controls_section();
 		}
 
 		/**
@@ -161,7 +177,7 @@ if ( ! class_exists( 'Jet_Sticky_Element_Extension' ) ) {
 			$type     = isset( $data['elType'] ) ? $data['elType'] : 'column';
 			$settings = $data['settings'];
 
-			if ( 'column' !== $type ) {
+			if ( 'column' !== $type && 'container' !== $type ) {
 				return;
 			}
 
