@@ -3,9 +3,9 @@
 Contributors: Crocoblock
 Tags: elementor, sticky, sticky column, sticky section, sticky header, addons, elementor addons
 Requires at least: 4.7
-Tested up to: 5.8.2
+Tested up to: 6.3
 Requires PHP: 5.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
